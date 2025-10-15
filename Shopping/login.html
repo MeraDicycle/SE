@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>登录</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4a90e2;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #357ab8;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .link a {
+      color: #4a90e2;
+      text-decoration: none;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form id="login-form">
+      <h1>登录</h1>
+
+      <div class="form-group">
+        <label for="username">用户名</label>
+        <input type="text" id="username" placeholder="请输入用户名" required>
+        <div class="error" id="userError">请输入用户名</div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input type="password" id="password" placeholder="请输入密码" required>
+        <div class="error" id="passError">请输入密码</div>
+      </div>
+
+      <button type="submit" class="submit-btn">登录</button>
+
+      <div class="link">
+        没有账号？<a href="register.html">去注册</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("login-form");
+    const userError = document.getElementById("userError");
+    const passError = document.getElementById("passError");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // 清空错误提示
+      userError.style.display = "none";
+      passError.style.display = "none";
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      let valid = true;
+
+      if (username === "") {
+        userError.textContent = "请输入用户名";
+        userError.style.display = "block";
+        valid = false;
+      }
+
+      if (password === "") {
+        passError.textContent = "请输入密码";
+        passError.style.display = "block";
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // 从 localStorage 中获取注册用户信息
+      const storedUser = localStorage.getItem("user");
+
+      if (!storedUser) {
+        alert("尚未注册，请先注册！");
+        window.location.href = "register.html";
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+
+      // 验证用户名和密码
+      if (username === user.username && password === user.password) {
+        alert("登录成功！");
+        // 登录成功后可保存登录状态
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "index.html"; // 跳转首页
+      } else {
+        alert("用户名或密码错误！");
+      }
+    });
+  </script>
+</body>
+</html>

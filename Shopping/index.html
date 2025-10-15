@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>爱购物 - 首页</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- 顶部导航栏 -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">i-Shopping</div>
+      <div class="search-bar">
+        <input type="text" placeholder="搜索商品、品牌" id="searchInput">
+        <button id="searchBtn">搜索</button>
+      </div>
+      <div class="user-menu">
+        <a href="login.html">登录</a> |
+        <a href="register.html">注册</a> |
+        <a href="#">购物车<span id="cart-count">(0)</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 轮播图
+  <section class="banner">
+    <div class="slides">
+      <img src="img/banner1.jpg" class="active" alt="广告1">
+      <img src="img/banner2.jpg" alt="广告2">
+      <img src="img/banner3.jpg" alt="广告3">
+    </div>
+    <div class="banner-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </section> -->
+
+  <!-- 商品分类导航 -->
+  <nav class="category">
+    <ul>
+      <li>家电</li>
+      <li>手机</li>
+      <li>电脑</li>
+      <li>服饰</li>
+      <li>母婴</li>
+      <li>美妆</li>
+      <li>食品</li>
+      <li>运动</li>
+      <li>更多</li>
+    </ul>
+  </nav>
+
+  <!-- 推荐商品区 -->
+  <main class="product-list">
+    <h2>精选推荐</h2>
+    <div class="products" id="productContainer">
+      <!-- 商品卡片将由 JS 动态生成 -->
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>© 2025 i-Shopping </p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>注册</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 30%;
+            margin: 0 auto;
+            background-color: white;
+            max-width: 500px;
+        }
+
+        .registration-form {
+        background-color: white;  /* 设置背景色为白色 */
+        padding: 30px;           /* 设置内边距为30px */
+        border-radius: 10px;     /* 设置10px的圆角边框 */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input.error-border {
+            border: 2px solid #e74c3c;
+            outline: none;
+        }
+
+        button{
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 100%; 
+            height: auto;
+            background-color: #4a90e2;
+            color: white;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #1b71bc;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <form class="registration-form" id="registration-form">
+            <h1 style="text-align: center;">注册</h1>
+
+            <div class="form-group">
+                <label><b>用户名</b></label>
+                <input type="text" name="username" placeholder="请输入用户名" required>
+                <div class="error">用户名长度必须在3-15个字符之间</div>
+
+            </div>
+
+            <div class="form-group">
+                <label><b>密码</b></label>
+                <input type="password" name="password1" placeholder="请输入密码" required>
+                <div class="error">密码长度必须在6-15个字符之间</div>
+            </div>
+
+            <div class="form-group">
+                <label><b>再次输入密码</b></label>
+                <input type="password" name="password2" placeholder="请确认密码" required>
+                <div class="error">两次输入的密码不一致</div>
+            </div>
+
+            <div class="form-group">
+                <label><b>邮箱</b></label>
+                <input type="text" name="email" placeholder="请输入邮箱" required>
+                <div class="error">请输入有效的电子邮箱地址</div>
+            </div>
+                
+            <div class="form-group"> 
+                <button type="submit" >确认注册</button>
+            </div>
+            
+        </form>
+
+    </div>
+
+    <script>
+
+        document.getElementById("registration-form").addEventListener("submit", function (e) {
+        e.preventDefault(); // 阻止表单直接提交
+
+        let isValid = true;
+        let firstErrorInput = null;
+
+        const usernameInput = this.username;
+        const password1Input = this.password1;
+        const password2Input = this.password2;
+        const emailInput = this.email;
+
+        // 获取表单元素
+        const username = this.username.value.trim();
+        const password1 = this.password1.value;
+        const password2 = this.password2.value;
+        const email = this.email.value.trim();
+
+        // 获取错误提示元素
+        const errors = this.querySelectorAll(".error");
+        errors.forEach(error => error.style.display = "none"); // 先清空所有错误提示
+        this.querySelectorAll("input").forEach(input => input.classList.remove("error-border"));
+
+        // 用户名验证：3-15个字符
+        if (username.length < 3 || username.length > 15) {
+            this.username.nextElementSibling.style.display = "block";
+            usernameInput.classList.add("error-border");
+            if (!firstErrorInput) firstErrorInput = usernameInput;
+            isValid = false;
+        }
+
+        // 密码验证：6-15个字符
+        if (password1.length < 6 || password1.length > 15) {
+            this.password1.nextElementSibling.style.display = "block";
+            password1Input.classList.add("error-border");
+            if (!firstErrorInput) firstErrorInput = password1Input;
+            isValid = false;
+        }
+
+        // 确认密码验证
+        if (password1 !== password2) {
+            this.password2.nextElementSibling.style.display = "block";
+            password2Input.classList.add("error-border");
+            if (!firstErrorInput) firstErrorInput = password2Input;
+            isValid = false;
+        }
+
+        // 邮箱验证（简单正则）
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            this.email.nextElementSibling.style.display = "block";
+            emailInput.classList.add("error-border");
+            if (!firstErrorInput) firstErrorInput = emailInput;
+            isValid = false;
+        }
+
+
+        // 自动聚焦到第一个错误输入框
+            if (firstErrorInput) {
+                firstErrorInput.focus();
+            }
+
+        // 如果全部验证通过，可以提交或做进一步操作
+        if (isValid) {
+            alert("注册成功！");
+            // 这里可以改成把数据发给后端
+            // this.submit(); // 真正提交
+        }
+    });
+
+    </script>
+
+</html>
